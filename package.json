@@ -6,13 +6,16 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "graphql": "^16.3.0",
     "graphql-request": "^4.2.0",
     "html-react-parser": "^1.4.10",
     "moment": "^2.29.1",
-    "next": "latest",
+    "next": "^12.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-multi-carousel": "^2.8.0",

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const FeaturedPostCard = ({ post }: any) => {
-  console.log('hello2', post)
   return (
     <div className="relative h-72">
       <div

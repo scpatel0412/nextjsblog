@@ -3,19 +3,35 @@ import Link from 'next/link'
 
 import { getCategories } from '../services'
 
-const Categories = () => {
+const Categories = ({ darkMode }: any) => {
   const [categories, setCategories] = useState<Array<any>>([])
+  const [colored, setColored] = useState<string | null>('')
 
   useEffect(() => {
     getCategories().then((newCategories) => {
       setCategories(newCategories)
     })
-  }, [])
+    setColored(darkMode)
+  }, [darkMode])
 
   return (
     <div>
-      <div className="mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg">
-        <h3 className="mb-8 border-b pb-4 text-xl font-semibold">Categories</h3>
+      <div
+        className={
+          colored === 'light'
+            ? 'mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg'
+            : 'mb-8 rounded-lg bg-gray-900 p-8 pb-12 text-white shadow-lg'
+        }
+      >
+        <h3
+          className={
+            colored === 'light'
+              ? 'mb-8 border-b pb-4 text-xl font-semibold'
+              : 'mb-8 border-b pb-4 text-xl font-semibold text-white'
+          }
+        >
+          Categories
+        </h3>
         {categories.map((category: any, index: any) => (
           <Link key={index} href={`/category/${category.slug}`}>
             <span

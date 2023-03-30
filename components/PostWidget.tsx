@@ -5,8 +5,9 @@ import Link from 'next/link'
 import { grpahCMSImageLoader } from '../util'
 import { getSimilarPosts, getRecentPosts } from '../services'
 
-const PostWidget = ({ categories, slug }: any) => {
+const PostWidget = ({ categories, slug, darkMode }: any) => {
   const [relatedPosts, setRelatedPosts] = useState<Array<any>>([])
+  const [colored, setColored] = useState<string | null>('')
 
   useEffect(() => {
     if (slug) {
@@ -18,15 +19,27 @@ const PostWidget = ({ categories, slug }: any) => {
         setRelatedPosts(result)
       })
     }
-  }, [slug])
+    setColored(darkMode)
+  }, [slug, darkMode])
   return (
     <div>
-      <div className="mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg">
-        <h3 className="mb-8 border-b pb-4 text-xl font-semibold">
+      <div
+        className={
+          colored === 'light'
+            ? 'mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg'
+            : 'mb-8 rounded-lg bg-gray-900 p-8 pb-12 shadow-lg'
+        }
+      >
+        <h3
+          className={
+            colored === 'light'
+              ? 'mb-8 border-b pb-4 text-xl font-semibold'
+              : 'mb-8 border-b pb-4 text-xl font-semibold text-white'
+          }
+        >
           {slug ? 'Related Posts' : 'Recent Posts'}
         </h3>
         {relatedPosts.map((post: any, index: any) => {
-          console.log('hello3', post)
           return (
             <div key={index} className="mb-4 flex w-full items-center">
               <div className="w-16 flex-none">
@@ -40,8 +53,20 @@ const PostWidget = ({ categories, slug }: any) => {
                   src={post.featuredImage.url}
                 />
               </div>
-              <div className="ml-4 flex-grow">
-                <p className="font-xs text-gray-500">
+              <div
+                className={
+                  colored === 'light'
+                    ? 'ml-4 flex-grow'
+                    : 'ml-4 flex-grow text-white'
+                }
+              >
+                <p
+                  className={
+                    colored === 'light'
+                      ? 'font-xs text-gray-500'
+                      : 'font-xs text-white'
+                  }
+                >
                   {moment(post.createdAt).format('MMM DD, YYYY')}
                 </p>
                 <Link href={`/post/${post.slug}`}>{post.title}</Link>

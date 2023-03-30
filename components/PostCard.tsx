@@ -1,27 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import moment from 'moment'
 import Link from 'next/link'
 import { grpahCMSImageLoader } from '../util'
 interface PostCardProps {
   post: any
+  darkMode: any
 }
 
-const PostCard = ({ post }: PostCardProps) => {
-  console.log('hello', post)
+const PostCard = ({ post, darkMode }: PostCardProps) => {
+  const [colored, setColored] = useState<string | null>('')
+  useEffect(() => {
+    setColored(darkMode)
+  }, [darkMode])
   return (
     <div>
-      <div className="mb-8 rounded-lg bg-white p-0 pb-12 shadow-lg lg:p-8">
-        {/* <div className="relative mb-6 inline-block h-60 w-full shadow-md lg:h-80">
-          <Image
-            unoptimized
-            loader={grpahCMSImageLoader}
-            alt={post.title}
-            className="rounded-t-lg shadow-lg lg:rounded-lg"
-            layout="fill"
-            src={post.node.featuredImage.url}
-          />
-        </div> */}
+      <div
+        className={
+          colored === 'light'
+            ? 'mb-8 rounded-lg bg-white p-0 pb-12 shadow-lg lg:p-8'
+            : 'mb-8 rounded-lg bg-gray-900  p-0 pb-12 shadow-lg lg:p-8'
+        }
+      >
         <div className="relative mb-6 overflow-hidden pb-80 shadow-md">
           <img
             src={post.node.featuredImage.url}
@@ -30,7 +30,13 @@ const PostCard = ({ post }: PostCardProps) => {
           />
         </div>
 
-        <h1 className="mb-8 cursor-pointer text-center text-3xl font-semibold transition duration-700 hover:text-pink-600">
+        <h1
+          className={
+            colored === 'light'
+              ? 'mb-8 cursor-pointer text-center text-3xl font-semibold transition duration-700 hover:text-pink-600'
+              : 'mb-8 cursor-pointer text-center text-3xl font-semibold text-white transition duration-700 hover:text-pink-600'
+          }
+        >
           <Link href={`/post/${post.node.slug}`}>{post.node.title}</Link>
         </h1>
         <div className="mb-8 block w-full items-center justify-center text-center lg:flex">
@@ -44,11 +50,23 @@ const PostCard = ({ post }: PostCardProps) => {
               className="rounded-full align-middle"
               src={post.node.author.photo.url}
             />
-            <p className="ml-2 inline align-middle text-lg font-medium text-gray-700">
+            <p
+              className={
+                colored === 'light'
+                  ? 'ml-2 inline align-middle text-lg font-medium text-gray-700'
+                  : 'ml-2 inline align-middle text-lg font-medium text-white'
+              }
+            >
               {post.node.author.name}
             </p>
           </div>
-          <div className="font-medium text-gray-700">
+          <div
+            className={
+              colored === 'light'
+                ? 'font-medium text-gray-700'
+                : 'font-medium text-white'
+            }
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="mr-2 inline h-6 w-6 text-pink-500"
@@ -68,7 +86,13 @@ const PostCard = ({ post }: PostCardProps) => {
             </span>
           </div>
         </div>
-        <p className="mb-8 px-4 text-center text-lg font-normal text-gray-700 lg:px-20">
+        <p
+          className={
+            colored === 'light'
+              ? 'mb-8 px-4 text-center text-lg font-normal text-gray-700 lg:px-20'
+              : 'mb-8 px-4 text-center text-lg font-normal text-white lg:px-20'
+          }
+        >
           {post.node.excerpt}
         </p>
         <div className="text-center">

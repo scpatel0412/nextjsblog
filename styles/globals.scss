@@ -9,14 +9,15 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  &:before{
-    content:'';
-    content: "";
+  &:before {
+    content: '';
+    content: '';
     width: 100%;
     height: 100vh;
     //background: linear-gradient(to right bottom, #6d327c, #485DA6, #00a1ba, #01b18e, #32b37b);
     // background: #D3D3D3;
-    background-image: url("../public/bg.jpg");
+    // background-image: url("../public/bg.jpg");
+    background-image: url('https://unsplash.com/photos/FGMpA9F_Jnk/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MzB8fG5pZ2h0c2t5fGVufDB8fHx8MTY4MDA5NTAwOA&force=true');
     position: fixed;
     left: 0;
     top: 0;
@@ -27,31 +28,30 @@ body {
   }
 }
 
-.text-shadow{
+.text-shadow {
   text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
 }
 
-.adjacent-post{
-  & .arrow-btn{
+.adjacent-post {
+  & .arrow-btn {
     transition: width 300ms ease;
     width: 50px;
   }
-  &:hover{
-    & .arrow-btn{
+  &:hover {
+    & .arrow-btn {
       width: 60px;
     }
   }
 }
 
 .react-multi-carousel-list {
-  & .arrow-btn{
+  & .arrow-btn {
     transition: width 300ms ease;
     width: 50px;
-    &:hover{
+    &:hover {
       width: 60px;
     }
   }
-  
 }
 
 a {
@@ -61,4 +61,46 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  width: 50px;
+  height: 26px;
+  background-color: #111;
+  display: flex;
+  border-radius: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  transform: scale(1.5);
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+/*  target the elemenent after the label*/
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
+
+.fa-moon {
+  color: pink;
+}
+
+.fa-sun {
+  color: yellow;
 }

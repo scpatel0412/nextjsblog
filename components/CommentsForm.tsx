@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { submitComment } from '../services'
 
-const CommentsForm = ({ slug }: any) => {
+const CommentsForm = ({ slug, darkMode }: any) => {
   const [error, setError] = useState<boolean>(false)
   const [localStorage, setLocalStorage] = useState<any>(null)
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false)
@@ -11,6 +11,7 @@ const CommentsForm = ({ slug }: any) => {
     comment: null,
     storeData: false,
   })
+  const [colored, setColored] = useState<string | null>('')
 
   useEffect(() => {
     setLocalStorage(window.localStorage)
@@ -22,7 +23,8 @@ const CommentsForm = ({ slug }: any) => {
         window.localStorage.getItem('email'),
     }
     setFormData(initalFormData)
-  }, [])
+    setColored(darkMode)
+  }, [darkMode])
 
   const onInputChange = (e: any) => {
     const { target } = e
@@ -81,7 +83,13 @@ const CommentsForm = ({ slug }: any) => {
   }
 
   return (
-    <div className="mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg">
+    <div
+      className={
+        colored === 'light'
+          ? 'mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg'
+          : 'mb-8 rounded-lg bg-gray-900 p-8 pb-12 text-white shadow-lg'
+      }
+    >
       <h3 className="mb-8 border-b pb-4 text-xl font-semibold">
         Leave a Reply
       </h3>
@@ -99,7 +107,7 @@ const CommentsForm = ({ slug }: any) => {
           type="text"
           value={formData.name}
           onChange={onInputChange}
-          className="w-full rounded-lg bg-gray-100 py-2 px-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
+          className="w-full rounded-lg bg-gray-100 px-4 py-2 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
           placeholder="Name"
           name="name"
         />
@@ -107,7 +115,7 @@ const CommentsForm = ({ slug }: any) => {
           type="email"
           value={formData.email}
           onChange={onInputChange}
-          className="w-full rounded-lg bg-gray-100 py-2 px-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
+          className="w-full rounded-lg bg-gray-100 px-4 py-2 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
           placeholder="Email"
           name="email"
         />
@@ -122,7 +130,14 @@ const CommentsForm = ({ slug }: any) => {
             name="storeData"
             value="true"
           />
-          <label className="cursor-pointer text-gray-500" htmlFor="storeData">
+          <label
+            className={
+              colored === 'light'
+                ? 'cursor-pointer text-gray-500'
+                : 'cursor-pointer text-white'
+            }
+            htmlFor="storeData"
+          >
             {' '}
             Save my name, email in this browser for the next time I comment.
           </label>
